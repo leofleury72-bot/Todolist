@@ -1,0 +1,79 @@
+.todo-list {
+  padding: clamp(1.25rem, 3vw, 1.75rem);
+  background: var(--color-surface, #111827);
+  border: 1px solid var(--color-border, #263244);
+  border-radius: 1rem;
+  box-shadow: 0 1rem 2.5rem rgba(0, 0, 0, 0.24);
+
+  .todo-list__header {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--color-border, #263244);
+  }
+
+  .todo-list__heading {
+    min-width: 0;
+  }
+
+  .todo-list__eyebrow {
+    margin-bottom: 0.25rem;
+    color: var(--color-primary, #4f46e5);
+    font-size: 0.7rem;
+    font-weight: 750;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .todo-list__title {
+    margin: 0;
+    color: var(--color-heading, #f1f5f9);
+    font-size: 1.5rem;
+    font-weight: 750;
+    line-height: 1.25;
+    letter-spacing: -0.03em;
+  }
+
+  .todo-list__count {
+    display: grid;
+    flex: 0 0 2.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    place-items: center;
+    color: #a5b4fc;
+    font-size: 0.85rem;
+    font-weight: 750;
+    background: #252b55;
+    border-radius: 50%;
+  }
+
+  .todo-list__items {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .todo-list__empty {
+    padding: 3rem 1.5rem;
+    text-align: center;
+    background: #0b1220;
+    border: 1px dashed #334155;
+    border-radius: 0.75rem;
+
+    .todo-list__empty-title {
+      margin-bottom: 0.35rem;
+      color: var(--color-heading, #f1f5f9);
+      font-weight: 700;
+    }
+
+    .todo-list__empty-description {
+      max-width: 24rem;
+      margin-inline: auto;
+      color: var(--color-text, #b6c2d2);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+  }
+}

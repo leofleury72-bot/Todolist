@@ -1,0 +1,82 @@
+.home-page {
+  --color-primary: #818cf8;
+  --color-primary-dark: #6366f1;
+  --color-accent: #22d3ee;
+  --color-heading: #f1f5f9;
+  --color-text: #b6c2d2;
+  --color-muted: #7f8da3;
+  --color-surface: #111827;
+  --color-background: #070b14;
+  --color-border: #263244;
+  --font-interface: Inter, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: clamp(2rem, 5vw, 4.5rem);
+  color: var(--color-text);
+  font-family: var(--font-interface);
+  background:
+    radial-gradient(
+      circle at 90% 5%,
+      rgba(99, 102, 241, 0.14),
+      transparent 32rem
+    ),
+    linear-gradient(145deg, rgba(11, 18, 32, 0.96), rgba(7, 11, 20, 0.98));
+
+  .home-page__header {
+    max-width: 42rem;
+    margin-bottom: clamp(2rem, 5vw, 3.5rem);
+    padding-left: 1.25rem;
+    border-left: 0.2rem solid var(--color-primary);
+  }
+
+  .home-page__eyebrow {
+    margin-bottom: 0.6rem;
+    color: var(--color-primary);
+    font-size: 0.75rem;
+    font-weight: 750;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .home-page__title {
+    margin: 0;
+    color: var(--color-heading);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 750;
+    line-height: 1.08;
+    letter-spacing: -0.045em;
+  }
+
+  .home-page__description {
+    max-width: 36rem;
+    margin-top: 1rem;
+    font-size: 1.05rem;
+    line-height: 1.7;
+  }
+
+  .home-page__content {
+    display: grid;
+    grid-template-columns: minmax(17rem, 0.75fr) minmax(0, 1.5fr);
+    gap: clamp(1.25rem, 3vw, 2rem);
+    align-items: start;
+  }
+
+  .home-page__form-panel,
+  .home-page__list-panel {
+    min-width: 0;
+  }
+
+  @media (max-width: 48rem) {
+    padding: 2rem 1rem;
+
+    .home-page__content {
+      grid-template-columns: 1fr;
+    }
+
+    .home-page__header {
+      padding-left: 1rem;
+    }
+  }
+}
