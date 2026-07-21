@@ -1,6 +1,6 @@
 import databaseClient from "../../../database/client";
-import type { Todo } from "../../types/todo";
 import type { Result, Rows } from "../../../database/client";
+import type { Todo } from "../../types/todo";
 export type NewTodo = {
   title: string;
   description: string;

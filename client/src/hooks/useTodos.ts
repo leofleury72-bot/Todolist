@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import ApiFetch from "./ApiFetch";
+import { useState } from "react";
 import type { Todo } from "../types/Todo";
+import ApiFetch from "./ApiFetch";
 
 const useTodos = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -13,9 +13,8 @@ const useTodos = () => {
       console.error("Error fetching todos:", error);
     }
   };
-  useEffect(() => {
-    fetchTodos();
-  }, []);
+
+  fetchTodos();
 
   return { todos, fetchTodos };
 };
