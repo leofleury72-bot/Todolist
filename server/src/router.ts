@@ -7,11 +7,13 @@ const router = express.Router();
 /* ************************************************************************* */
 
 // Define item-related routes
-import itemActions from "./modules/item/itemActions";
-
-router.get("/api/items", itemActions.browse);
-router.get("/api/items/:id", itemActions.read);
-router.post("/api/items", itemActions.add);
+import TodoAction from "./modules/Todo/TodoAction";
+router.get("/api/todos", TodoAction.browse);
+router.post("/api/todos", TodoAction.add);
+router.put("/api/todos/:id", TodoAction.update);
+router.delete("/api/todos/:id", TodoAction.remove);
+router.patch("/api/todos/:id", TodoAction.patch);
+// Logic to retrieve all todos from the database
 
 /* ************************************************************************* */
 
