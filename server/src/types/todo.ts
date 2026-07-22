@@ -6,3 +6,12 @@ export type Todo = {
   created_at: Date;
   updated_at: Date;
 };
+export type NewTodo = {
+  title: string;
+  description: string;
+  userId: number;
+};
+export type UpdateTodo = {
+  title: string;
+  description: string;
+};

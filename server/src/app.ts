@@ -21,7 +21,7 @@ const app = express();
 import cors from "cors";
 
 if (process.env.CLIENT_URL != null) {
-  app.use(cors({ origin: [process.env.CLIENT_URL] }));
+  app.use(cors({ origin: [process.env.CLIENT_URL], credentials: true }));
 }
 
 // If you need to allow extra origins, you can add something like this:
@@ -44,7 +44,6 @@ app.use(
 // Request parsing is necessary to extract data sent by the client in an HTTP request.
 // For example to access the body of a POST request.
 // The current code contains different parsing options as comments to demonstrate different ways of extracting data.
-
 express.json();
 express.urlencoded();
 // 3. `express.text()`: Parses requests with raw text data.
@@ -52,6 +51,8 @@ express.urlencoded();
 
 // Uncomment one or more of these options depending on the format of the data sent by your client:
 
+import cookieParser from "cookie-parser";
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded());
 // app.use(express.text());

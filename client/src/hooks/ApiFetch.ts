@@ -1,12 +1,15 @@
 const ApiFetch = async (endpoint: string, options: RequestInit = {}) => {
   try {
-    const response = await fetch(
-      `${import.meta.env.VITE_API_URL}${endpoint}`,
-      options,
-    );
+    const response = await fetch(`${import.meta.env.VITE_API_URL}${endpoint}`, {
+      credentials: "include",
+      ...options,
+    });
 
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      const errorBody = (await response.json().catch(() => null)) as {
+        message?: string;
+      } | null;
+      throw new Error(errorBody?.message ?? `Erreur HTTP ${response.status}`);
     }
 
     return response.json();
