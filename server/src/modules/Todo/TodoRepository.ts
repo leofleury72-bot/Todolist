@@ -1,10 +1,7 @@
 import databaseClient from "../../../database/client";
-import type { Todo } from "../../types/todo";
 import type { Result, Rows } from "../../../database/client";
-export type NewTodo = {
-  title: string;
-  description: string;
-};
+import type { NewTodo, Todo, UpdateTodo } from "../../types/todo";
+
 class TodoRepository {
   async readAll() {
     const [rows] = await databaseClient.query<Rows>(
@@ -14,8 +11,8 @@ class TodoRepository {
   }
   async create(todo: NewTodo) {
     const [result] = await databaseClient.query<Result>(
-      "INSERT INTO todo (title, description) VALUES (?, ?)",
-      [todo.title, todo.description],
+      "INSERT INTO todo (title, description, user_id) VALUES (?, ?, ?)",
+      [todo.title, todo.description, todo.userId],
     );
     return result.insertId;
   }
@@ -26,7 +23,7 @@ class TodoRepository {
     );
     return result.affectedRows;
   }
-  async update(id: number, todo: NewTodo) {
+  async update(id: number, todo: UpdateTodo) {
     const [result] = await databaseClient.query<Result>(
       "UPDATE todo SET title = ?, description = ? WHERE id = ?",
       [todo.title, todo.description, id],

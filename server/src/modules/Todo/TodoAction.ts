@@ -16,8 +16,19 @@ const browse: RequestHandler = async (_req, res, next) => {
 };
 const add: RequestHandler = async (req, res, next) => {
   try {
+    if (!req.user) {
+      res.status(401).json({
+        message: "Non authentifié",
+      });
+      return;
+    }
+    const userId = req.user.id;
     const { title, description } = req.body;
-    const insertId = await TodoRepository.create({ title, description });
+    const insertId = await TodoRepository.create({
+      title,
+      description,
+      userId,
+    });
     res.status(201).json({
       message: "Todo created successfully",
       id: insertId,

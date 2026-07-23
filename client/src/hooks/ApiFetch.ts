@@ -1,14 +1,31 @@
+class ApiFetchError extends Error {
+  status: number;
+
+  constructor(message: string, status: number) {
+    super(message);
+    this.status = status;
+  }
+}
+
 const ApiFetch = async (endpoint: string, options: RequestInit = {}) => {
   try {
-    const response = await fetch(
-      `${import.meta.env.VITE_API_URL}${endpoint}`,
-      options,
-    );
+    const response = await fetch(`${import.meta.env.VITE_API_URL}${endpoint}`, {
+      credentials: "include",
+      ...options,
+    });
 
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      const errorBody = (await response.json().catch(() => null)) as {
+        message?: string;
+      } | null;
+      throw new ApiFetchError(
+        errorBody?.message ?? `Erreur HTTP ${response.status}`,
+        response.status,
+      );
     }
-
+    if (response.status === 204) {
+      return null;
+    }
     return response.json();
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -16,4 +33,5 @@ const ApiFetch = async (endpoint: string, options: RequestInit = {}) => {
   }
 };
 
+export { ApiFetchError };
 export default ApiFetch;
