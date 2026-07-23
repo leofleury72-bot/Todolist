@@ -13,9 +13,8 @@ Express connectée à une base de données MySQL.
 - persistance de la connexion après rechargement grâce à `GET /api/me` ;
 - déconnexion ;
 - création, modification et suppression de tâches ;
-- validation et annulation de tâches ;
+- validation et suppression de tâches ;
 - séparation entre les tâches en cours et les tâches terminées ;
-- interface responsive.
 
 ## Technologies
 
@@ -35,7 +34,6 @@ Express connectée à une base de données MySQL.
 - MySQL ;
 - Argon2 ;
 - JSON Web Token ;
-- Jest et Supertest.
 
 ### Qualité du code
 
@@ -142,26 +140,6 @@ npm run dev:client
 npm run dev:server
 ```
 
-## Lancement avec Docker
-
-Construire et démarrer l'application et MySQL :
-
-```bash
-docker compose up -d --build
-```
-
-Afficher les logs :
-
-```bash
-docker compose logs -f
-```
-
-Arrêter les conteneurs :
-
-```bash
-docker compose down
-```
-
 ## Routes de l'API
 
 ### Authentification
@@ -173,7 +151,7 @@ docker compose down
 | `POST` | `/api/logout` | Supprimer le cookie JWT |
 | `GET` | `/api/me` | Récupérer l'utilisateur connecté |
 
-### Tâches
+### Tâches avec CRUD
 
 Toutes les routes suivantes sont protégées par l'authentification :
 
