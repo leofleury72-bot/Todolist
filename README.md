@@ -111,7 +111,7 @@ DB_HOST=localhost
 DB_PORT=3306
 DB_USER=your_user
 DB_PASSWORD=your_password
-DB_NAME=todolist
+DB_NAME=your_db_name
 JWT_SECRET=replace_with_a_long_random_secret
 CLIENT_URL=http://localhost:3000
 ```
