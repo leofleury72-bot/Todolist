@@ -1,58 +1,8 @@
 import argon2 from "argon2";
 import type { RequestHandler } from "express";
-import jwt from "jsonwebtoken";
+import { createAuthToken, setAuthCookie } from "../Auth/Auth";
 import UserRepository from "./UserRepository";
 
-const login: RequestHandler = async (req, res) => {
-  const { email, password } = req.body;
-
-  const user = await UserRepository.readByEmail(email);
-
-  if (!user) {
-    res.status(401).json({
-      message: "Email ou mot de passe incorrect",
-    });
-
-    return;
-  }
-
-  const isPasswordValid = await argon2.verify(user.password, password);
-
-  if (!isPasswordValid) {
-    res.status(401).json({
-      message: "Email ou mot de passe incorrect",
-    });
-
-    return;
-  }
-
-  const token = jwt.sign(
-    {
-      id: user.id,
-      role: user.role,
-    },
-    process.env.JWT_SECRET as string,
-    {
-      expiresIn: "7d",
-    },
-  );
-
-  res.cookie("token", token, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
-    maxAge: 7 * 24 * 60 * 60 * 1000,
-  });
-
-  res.status(200).json({
-    message: "Connexion réussie",
-    user: {
-      id: user.id,
-      email: user.email,
-      role: user.role,
-    },
-  });
-};
 const register: RequestHandler = async (req, res, next) => {
   try {
     const { email, password } = req.body;
@@ -74,20 +24,39 @@ const register: RequestHandler = async (req, res, next) => {
       email,
       passwordHash,
     });
+    const token = createAuthToken({
+      id: userId,
+    });
 
-    if (!userId) {
-      res.status(500).json({
-        message: "Erreur lors de la création du compte",
+    setAuthCookie(res, token);
+
+    res.status(201).json({
+      message: "Compte créé avec succès",
+      user: {
+        id: userId,
+        email,
+      },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+const me: RequestHandler = async (req, res, next) => {
+  try {
+    const user = await UserRepository.readById(req.user?.id);
+    if (!user) {
+      res.status(404).json({
+        message: "Utilisateur introuvable",
       });
       return;
     }
-    res.status(201).json({
-      message: "Compte créé avec succès",
-      id: userId,
+    res.status(200).json({
+      id: user.id,
+      email: user.email,
     });
   } catch (error) {
     next(error);
   }
 };
 
-export default { login, register };
+export default { register, me };

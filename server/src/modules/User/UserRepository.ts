@@ -20,6 +20,13 @@ class UserRepository {
     );
     return result.insertId;
   }
+  async readById(id: number) {
+    const [rows] = await databaseClient.query<Rows>(
+      "SELECT * FROM users WHERE id = ?",
+      [id],
+    );
+    return (rows as User[])[0];
+  }
 }
 
 export default new UserRepository();
