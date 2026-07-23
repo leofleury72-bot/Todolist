@@ -8,7 +8,13 @@ Express connectée à une base de données MySQL.
 
 ## Démonstration
 
+### Authentification
+
 ![Démonstration de l'application Todo List](./client/src/assets/images/demo.gif)
+
+### Gestion des tâches
+
+![Démonstration de la gestion des tâches](./client/src/assets/images/demo-todos.gif)
 
 ## Fonctionnalités
 
