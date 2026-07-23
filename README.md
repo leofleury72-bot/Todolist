@@ -6,6 +6,10 @@ ses tâches dans un espace personnel.
 Le projet est un monorepo TypeScript composé d'un frontend React et d'une API
 Express connectée à une base de données MySQL.
 
+## Démonstration
+
+![Démonstration de l'application Todo List](./client/src/assets/images/demo.gif)
+
 ## Fonctionnalités
 
 - création d'un compte et connexion ;
